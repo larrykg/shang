@@ -62,9 +62,30 @@
 <script>
   export default {
     name: "Header",
+    data() {
+      return {
+        keyword: '',
+        userName:'Test'
+      }
+    },
     methods: {
       goSearch() {
-        this.$router.push('/search')
+        //1.字符串方式传递参数
+        //this.$router.push('/search/'+this.keyword+'?k='+this.keyword.toUpperCase());
+        //  2.模板字符串方式传参
+        //this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`);
+        // 3对象方式传参  需要配置路由name属性
+        this.$router.push({
+          name: 'search', params: {
+            keyword: this.keyword
+          },
+          query: {k: this.keyword.toUpperCase()}
+
+        })
+
+      },
+      logout(){
+        console.log('out');
       }
     }
   }
