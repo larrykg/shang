@@ -65,7 +65,7 @@
     data() {
       return {
         keyword: '',
-        userName:'Test'
+        userName: 'Test'
       }
     },
     methods: {
@@ -80,11 +80,28 @@
             keyword: this.keyword
           },
           query: {k: this.keyword.toUpperCase()}
-
+          //编程式导航进行路由跳转的时候 反复点击会有警告：通过给push方法传递相应成功,失败的函数可以捕获到当前的错误可以解决 因为push会返回一个promise
         })
 
+        //question 1对象传参的时候对象的写法 path是否可以结核params参数一起使用：对象的写法可以是name,path的形式,path这种写法不能与params参数一起使用
+        // this.$router.push({
+        //   path: 'search', params: {
+        //     keyword: this.keyword
+        //   },
+        //   query: {k: this.keyword.toUpperCase()}
+        // })
+        //question 2如何指定params参数可传可不传:
+        //路由指定要求传递params参数 但是没有传递params url会有问题
+        //可以再配置路由时 在占位的后面加上一个问号
+        // this.$router.push({name:'search',query:{k:this.keyword.toUpperCase()}})
+        //question3 params参数可传可不传 如果传空 如何解决
+        //使用 undefined 解决
+        //this.$router.push({name: 'search', params: {keyword: '' || undefined}, query: {k: this.keyword.toUpperCase()}})
+        //question 4 可不可以传递props数据
+        //有三种写法
+
       },
-      logout(){
+      logout() {
         console.log('out');
       }
     }

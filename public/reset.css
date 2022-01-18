@@ -36,6 +36,7 @@ ul, ol { list-style: none; }
 a { text-decoration: none; color: #666;}
 
 
+
 /* 重置表单元素 */
 legend { color: #000; } /* for ie6 */
 fieldset, img { border: none; }

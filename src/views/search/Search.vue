@@ -8,7 +8,12 @@
 
 <script>
   export default {
-    name: "Search"
+    name: "Search",
+    props:{
+      keyword:{
+        type:String
+      }
+    }
   }
 </script>
 
