@@ -3,8 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import TypeNav from "@/views/home/typeNav/TypeNav";
-Vue.component(TypeNav.name,TypeNav)
+Vue.component(TypeNav.name,TypeNav);
 
+import  {reqCategoryList} from '@/api/index'
+reqCategoryList()
 new Vue({
   router,
   store,
