@@ -4,7 +4,7 @@
     <!--    路由组件出口-->
     <router-view></router-view>
     <!--    in home/search show footer-->
-    <Footer v-show="$route.path=='/home'||$route.path=='/search'"/>
+    <Footer v-show="$route.meta.show"/>
   </div>
 
 </template>
