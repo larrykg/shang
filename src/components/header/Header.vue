@@ -5,22 +5,15 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <!-- 没有用户名：未登录 -->
-          <p v-if="!userName">
+          <p>
             <span>请</span>
-            <!-- 声明式导航：router-link务必要有to属性 -->
-            <router-link to="/login">登录</router-link>
-            <router-link class="register" to="/register">免费注册</router-link>
-          </p>
-          <!-- 登录了 -->
-          <p v-else>
-            <a>{{userName}}</a>
-            <a class="register" @click="logout">退出登录</a>
+            <a href="###">登录</a>
+            <a href="###" class="register">免费注册</a>
           </p>
         </div>
         <div class="typeList">
-          <router-link to="/center/myorder">我的订单</router-link>
-          <router-link to="/shopcart">我的购物车</router-link>
+          <a href="###">我的订单</a>
+          <a href="###">我的购物车</a>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
           <a href="###">企业采购</a>
@@ -33,26 +26,14 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <!-- router-link组件本省就是一个a标签 -->
-        <router-link to="/home" class="logo">
-          <img src="./images/logo.png" alt=""/>
+        <router-link class="logo" to="/home">
+          <img src="./images/logo.png" alt="">
         </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
-          <input
-                  type="text"
-                  id="autocomplete"
-                  class="input-error input-xxlarge"
-                  v-model="keyword"
-          />
-          <button
-                  class="sui-btn btn-xlarge btn-danger"
-                  type="button"
-                  @click="goSearch"
-          >
-            搜索
-          </button>
+          <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword"/>
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
         </form>
       </div>
     </div>
@@ -75,14 +56,12 @@
         //  2.模板字符串方式传参
         //this.$router.push(`/search/${this.keyword}?k=${this.keyword.toUpperCase()}`);
         // 3对象方式传参  需要配置路由name属性
-        this.$router.push({
-          name: 'search', params: {
-            keyword: this.keyword
-          },
-          query: {k: this.keyword.toUpperCase()}
-          //编程式导航进行路由跳转的时候 反复点击会有警告：通过给push方法传递相应成功,失败的函数可以捕获到当前的错误可以解决 因为push会返回一个promise
-        })
-
+        let location = {name: 'search', params: {keyword: this.keyword || undefined}};
+        if (this.$route.query) {
+          location.query = this.$route.query
+        }
+        this.$router.push(location)
+//编程式导航进行路由跳转的时候 反复点击会有警告：通过给push方法传递相应成功,失败的函数可以捕获到当前的错误可以解决 因为push会返回一个promise
         //question 1对象传参的时候对象的写法 path是否可以结核params参数一起使用：对象的写法可以是name,path的形式,path这种写法不能与params参数一起使用
         // this.$router.push({
         //   path: 'search', params: {

@@ -110,8 +110,18 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   export default {
-    name: "ListContainer"
+    name: "ListContainer",
+    mounted() {
+      //派发请求 将数据放到仓库中
+      this.$store.dispatch('getBannerList')
+    },
+    computed:{
+      ...mapState({
+        bannerList:state=>state.home.bannerList
+      })
+    }
   }
 </script>
 
