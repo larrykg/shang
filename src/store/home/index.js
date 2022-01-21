@@ -1,16 +1,20 @@
 // home模块自有仓
-import {reqCategoryList,reqGetBannerList} from '@/api'
+import {reqCategoryList, reqGetBannerList, reqFloorList} from '@/api'
 
 const state = {
   categoryList: [],
-  bannerList:[]
+  bannerList: [],
+  floorList: []
 };
 const mutations = {
   CATEGORYLIST(state, categoryList) {
     state.categoryList = categoryList.splice(0, 16)
   },
-  BANNERLIST(state,bannerList){
+  BANNERLIST(state, bannerList) {
     state.bannerList = bannerList
+  },
+  FLOORLIST(state, floorList) {
+    state.floorList = floorList
   }
 };
 const actions = {
@@ -21,12 +25,18 @@ const actions = {
       commit('CATEGORYLIST', res.data)
     }
   },
-  async getBannerList({commit}){
-    let res= await reqGetBannerList();
-    if(res.code==200){
-      commit('BANNERLIST',res.data)
+  async getBannerList({commit}) {
+    let res = await reqGetBannerList();
+    if (res.code == 200) {
+      commit('BANNERLIST', res.data)
     }
     console.log(res);
+  },
+  async getFloorList({commit}) {
+    let res = await reqFloorList();
+    if (res.code == 200) {
+      commit('FLOORLIST', res.data)
+    }
   }
 };
 const getters = {};
