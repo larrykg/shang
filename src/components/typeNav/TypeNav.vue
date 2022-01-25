@@ -88,7 +88,6 @@
       goSearch(event) {
         let element = event.target;
         //节点的dataset 可以获取自定义属性
-        console.log(element.dataset);
         let {categoryname, category1id, category2id, category3id} = element.dataset;
         if (categoryname) {
           //整理路由跳转的参数

@@ -60,6 +60,7 @@
         if (this.$route.query) {
           location.query = this.$route.query
         }
+        console.log(location);
         this.$router.push(location)
 //编程式导航进行路由跳转的时候 反复点击会有警告：通过给push方法传递相应成功,失败的函数可以捕获到当前的错误可以解决 因为push会返回一个promise
         //question 1对象传参的时候对象的写法 path是否可以结核params参数一起使用：对象的写法可以是name,path的形式,path这种写法不能与params参数一起使用
@@ -83,6 +84,12 @@
       logout() {
         console.log('out');
       }
+    },
+    mounted() {
+      //通过$bus
+      this.$bus.$on('clear',()=>{
+        this.keyword = ''
+      })
     }
   }
 </script>
