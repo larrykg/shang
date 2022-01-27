@@ -76,8 +76,9 @@
       // },
       leaveIndex() {
         this.currentIndex = -1;
-        if (this.$route.path == '/search') {
-          this.typeNavShow = false
+
+        if (this.$route.path != "/home") {
+          this.typeNavShow = false;
         }
 
       },
@@ -101,7 +102,7 @@
             query.category3Id = category3id
           }
           location.query = query;
-          if(this.$route.params){
+          if (this.$route.params) {
             location.params = this.$route.params
           }
           this.$router.push(location)

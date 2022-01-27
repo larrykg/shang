@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/home/Home'
-import Search from '@/views/search/Search'
-import Login from '@/views/login/Login'
-import Register from '@/views/register/Register'
+import routes from './routes'
 
 Vue.use(VueRouter);
 
@@ -12,7 +9,7 @@ Vue.use(VueRouter);
 let originPush = VueRouter.prototype.push;
 let originReplace = VueRouter.prototype.replace;
 //重写VueRouter.prototype身上的push方法了
-VueRouter.prototype.push = function(location, resolve, reject) {
+VueRouter.prototype.push = function (location, resolve, reject) {
   //第一个形参：路由跳转的配置对象（query|params）
   //第二个参数：undefined|箭头函数（成功的回调）
   //第三个参数:undefined|箭头函数（失败的回调）
@@ -25,68 +22,37 @@ VueRouter.prototype.push = function(location, resolve, reject) {
     originPush.call(
         this,
         location,
-        () => {},
-        () => {}
+        () => {
+        },
+        () => {
+        }
     );
   }
 };
 //重写VueRouter.prototype身上的replace方法了
-VueRouter.prototype.replace = function(location, resolve, reject) {
+VueRouter.prototype.replace = function (location, resolve, reject) {
   if (resolve && reject) {
     originReplace.call(this, location, resolve, reject);
   } else {
     originReplace.call(
         this,
         location,
-        () => {},
-        () => {}
+        () => {
+        },
+        () => {
+        }
     );
   }
 };
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    redirect:'/home'
-  },
-
-  {
-    path: '/home',
-    component: Home,
-    meta: {show: true}
-  },
-  {
-    path: '/search/:keyword?',
-    component: Search,
-    meta: {show: true},
-    name: 'search',
-    // 可不可以传递props数据 1  布尔值写法
-    // props:true
-    //2对象写法 额外传递
-    // props:{a:2,b:3}
-    //  3 函数写法
-    // props: ($route) => {
-    //   return {keyword: $route.params.keyword, k: $route.query.k}
-    // }
-  },
-  {
-    path: '/login',
-    component: Login,
-    meta: {show: false}
-  },
-  {
-    path: '/register',
-    component: Register,
-    meta: {show: false}
-  },
-]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  //滚动行为
+  scrollBehavior(to, from, savedPosition) {
+    return {y: 0}
+  }
 })
 
 export default router

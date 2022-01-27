@@ -27,3 +27,19 @@ export const reqGetSearchInfo = (params) => {
     data: params
   })
 }
+
+export const reqGoodsInfo = (skuId) => {
+  return requests({
+        url: `/item/${skuId}`,
+        method: 'get'
+      }
+  )
+}
+
+//添加到购物车的\\更新数量
+export const reqAddCart = (skuId, skuNum) => {
+  return requests({
+    url: `/cart/addToCart/${skuId}/${skuNum}`,
+    method: 'post'
+  })
+}
