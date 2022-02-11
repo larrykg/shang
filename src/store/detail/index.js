@@ -1,4 +1,4 @@
-import {reqGoodsInfo} from '@/api'
+import {reqGoodsInfo, reqAddCart} from '@/api'
 
 const state = {
   goodInfo: {}
@@ -13,6 +13,17 @@ const actions = {
     let res = await reqGoodsInfo(skuId);
     if (res.code == 200) {
       commit('GETDETAILONFI', res.data)
+    }
+  },
+  //添加至购物车||更新数量
+  async addShopCart({commit}, {skuId, skuNum}) {
+    let res = await reqAddCart(skuId, skuNum);
+    console.log(res);
+    if (res.code == 200) {
+      return 'OK'
+    } else {
+      //加入购物车失败
+      return Promise.reject(new Error('faile'))
     }
   }
 }

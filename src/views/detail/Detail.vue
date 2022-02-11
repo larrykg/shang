@@ -82,7 +82,7 @@
                 <a href="javascript:" class="mins" @click="cont>1?cont--:cont=1">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="addShopCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -365,12 +365,25 @@
         value.isChecked = 1
       },
       changeCont(event) {
-        console.log(event.target.value);
         let pCount = 1 * event.target.value;
         if (isNaN(pCount) || pCount < 1) {
           this.cont = 1
         } else {
           this.cont = parseInt(pCount)
+        }
+      },
+      //加入购物车
+      async addShopCart() {
+        try {
+          await this.$store.dispatch('addShopCart',
+              {skuId: this.$route.params.skuId, skuNum: this.cont}
+          );
+          //路由跳转
+          //简单的数据通过query的行是传递  复杂的数据通过session存储
+          sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo));
+          this.$router.push({name: 'addcartsuccess', query: {skuNum: this.cont}})
+        } catch (err) {
+          alert(err.message)
         }
       }
     }

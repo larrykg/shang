@@ -3,12 +3,27 @@ import Search from '@/views/search/Search'
 import Login from '@/views/login/Login'
 import Register from '@/views/register/Register'
 import Detail from "@/views/detail/Detail";
+import AddCartSuccess from "@/views/AddCartSuccess/AddCartSuccess";
+import ShopCart from "@/views/ShopCart/ShopCart";
+
 export default [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    redirect:'/home'
+    redirect: '/home'
+  },
+  {
+    path: '/shopcart',
+    name: 'shopcart',
+    component: ShopCart,
+    meta: {show: true}
+  },
+  {
+    path: '/addcartsuccess',
+    name: 'addcartsuccess',
+    component: AddCartSuccess,
+    meta: {show: true}
   },
   {
     path: '/home',
