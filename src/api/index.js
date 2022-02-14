@@ -43,3 +43,12 @@ export const reqAddCart = (skuId, skuNum) => {
     method: 'post'
   })
 }
+
+//获取购物车列表数据  /api/cart/cartList
+export const reqCarList = () => {
+  return requests({
+    url: '/cart/cartList',
+    method: 'get'
+  })
+}
+

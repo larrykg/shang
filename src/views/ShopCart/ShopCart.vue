@@ -105,7 +105,8 @@
       </div>
       <div class="money-box">
         <div class="chosed">已选择
-          <span>0</span>件商品</div>
+          <span>0</span>件商品
+        </div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
           <i class="summoney">0</i>
@@ -121,6 +122,15 @@
 <script>
   export default {
     name: 'ShopCart',
+    mounted() {
+      this.getDate()
+    },
+    methods: {
+      //获取个人购物车数据
+      getDate() {
+        this.$store.dispatch('getCartList')
+      }
+    }
   }
 </script>
 
@@ -142,7 +152,7 @@
         padding: 10px;
         overflow: hidden;
 
-        &>div {
+        & > div {
           float: left;
         }
 
@@ -180,7 +190,7 @@
           border-bottom: 1px solid #ddd;
           overflow: hidden;
 
-          &>li {
+          & > li {
             float: left;
           }
 
@@ -204,7 +214,6 @@
               line-height: 18px;
             }
           }
-
 
 
           .cart-list-con4 {

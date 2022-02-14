@@ -349,7 +349,7 @@
       Zoom
     },
     mounted() {
-      console.log(this.$route.params);
+
       //派发action 获取商品详情信息
       this.$store.dispatch('getGoodInfo', this.$route.params.skuId)
     },

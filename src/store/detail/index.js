@@ -1,7 +1,9 @@
 import {reqGoodsInfo, reqAddCart} from '@/api'
-
+import {getUUID} from '@/utils/uuid'
 const state = {
-  goodInfo: {}
+  goodInfo: {},
+  //游客的临时身份
+  uuid_token:getUUID()
 }
 const mutations = {
   GETDETAILONFI(state, payload) {
