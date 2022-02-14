@@ -24,9 +24,10 @@
             <span class="price">{{cart.skuPrice}}.00</span>
           </li>
           <li class="cart-list-con5">
-            <a href="javascript:void(0)" class="mins">-</a>
-            <input autocomplete="off" type="text" :value="cart.skuNum" minnum="1" class="itxt">
-            <a href="javascript:void(0)" class="plus">+</a>
+            <a href="javascript:void(0)" class="mins" @click="handler('min',-1,cart)">-</a>
+            <input autocomplete="off" type="text" :value="cart.skuNum" minnum="1" class="itxt"
+                   @change="handler('change',$event.target.value*1,cart)">
+            <a href="javascript:void(0)" class="plus" @click="handler('add',1,cart)">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{cart.skuNum*cart.skuPrice}}.00</span>
@@ -97,6 +98,39 @@
       //获取个人购物车数据
       getDate() {
         this.$store.dispatch('getCartList')
+      },
+      //修改产品个数
+      async handler(type, disNum, cart) {
+        //type为了区分操作类型
+        console.log(type, disNum, cart);
+        //修改数量
+        switch (type) {
+          case 'add':
+            disNum = 1
+            break;
+          case 'min':
+            //判断产品的个数大于1
+            // if (cart.skuNum > 1) {
+            //   disNum = -1
+            // } else {
+            //   disNum = 0
+            // }
+            disNum = cart.skuNum > 1 ? -1 : 0
+            break;
+          case 'change':
+            if (isNaN(disNum) || disNum < 1) {
+              disNum = 0
+            } else {
+              disNum = parseInt(disNum) - cart.skuNum
+            }
+            break
+        }
+        try {
+          await this.$store.dispatch('addShopCart', {skuId: cart.skuId, skuNum: disNum});
+          this.getDate()
+        } catch (e) {
+
+        }
       }
     }
   }

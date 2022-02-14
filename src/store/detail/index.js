@@ -20,7 +20,6 @@ const actions = {
   //添加至购物车||更新数量
   async addShopCart({commit}, {skuId, skuNum}) {
     let res = await reqAddCart(skuId, skuNum);
-    console.log(res);
     if (res.code == 200) {
       return 'OK'
     } else {
