@@ -1,4 +1,4 @@
-import {reqCarList} from '@/api';
+import {reqCarList, reqDeleteCartById} from '@/api';
 
 const state = {
   cartList: []
@@ -15,6 +15,15 @@ const actions = {
     console.log(result);
     if (result.code == 200) {
       commit('GERCARTLIST', result.data)
+    }
+  },
+  //删除购物车
+  async deleteCartListBySkuId({commit}, skuId) {
+    let result = await reqDeleteCartById(skuId);
+    if (result.code == 200) {
+      return 'ok'
+    } else {
+      return 'error'
     }
   }
 };
