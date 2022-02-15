@@ -45,7 +45,8 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked" @change="updateAllChecked">
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked&&cartInfoList.length>0"
+               @change="updateAllChecked($event)">
         <span>全选</span>
       </div>
       <div class="option">
@@ -167,7 +168,18 @@
 
       },
 
-      //修改
+      //修改全部产品的选中状态
+      async updateAllChecked(event) {
+        try {
+          let checked = event.target.checked ? '1' : '0';
+          await this.$store.dispatch('updateAllCartIsChecked', checked);
+          this.getDate()
+        } catch (e) {
+          alert(e.message)
+        }
+
+
+      }
     }
   }
 </script>

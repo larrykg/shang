@@ -45,6 +45,16 @@ const actions = {
     });
     //如果全部都成功 但会结果即为成功 如果有一个失败 返回结果即为失败
     return Promise.all(PromiseAll);
+  },
+
+  //修改全部产品的选中
+  updateAllCartIsChecked({dispatch, state}, isChecked) {
+    let PromiseAll = [];
+    state.cartList[0].cartInfoList.forEach(item => {
+     let promis =  dispatch('reqChangeCartStatus', {skuId: item.skuId, isChecked: isChecked});
+     PromiseAll.push(promis)
+    });
+    return Promise.all(PromiseAll)
   }
 };
 const getters = {
