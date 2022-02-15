@@ -13,7 +13,8 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="(cart,index) in cartInfoList" :key="cart.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :checked="cart.isChecked==1">
+            <input type="checkbox" name="chk_list" :checked="cart.isChecked==1"
+                   @change="reqChangeCartStatus(cart,$event)">
           </li>
           <li class="cart-list-con2">
             <img :src="cart.imgUrl">
@@ -140,6 +141,18 @@
         } catch (e) {
           alert(e.message)
         }
+      },
+      //修改勾选状态
+      async reqChangeCartStatus(cart, event) {
+        console.log(event);
+        try {
+          let checked = event.target.checked ? 1 : 0
+          await this.$store.dispatch('reqChangeCartStatus', {skuId: cart.skuId, isChecked: checked});
+          this.getDate()
+        } catch (e) {
+          alert(e.message)
+        }
+
       }
     }
   }

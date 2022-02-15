@@ -1,4 +1,4 @@
-import {reqCarList, reqDeleteCartById} from '@/api';
+import {reqCarList, reqDeleteCartById, reqChangeCartStatus} from '@/api';
 
 const state = {
   cartList: []
@@ -24,6 +24,15 @@ const actions = {
       return 'ok'
     } else {
       return 'error'
+    }
+  },
+  //修改购物车选中状态
+  async reqChangeCartStatus({commit}, {skuId, isChecked}) {
+    let result = await reqChangeCartStatus(skuId, isChecked);
+    if (result.code == 200) {
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('faile'))
     }
   }
 };

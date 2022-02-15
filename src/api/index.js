@@ -61,3 +61,11 @@ export const reqDeleteCartById = (skuId) => {
   })
 }
 
+//修改商品的选中状态
+export const reqChangeCartStatus = (skuId, isChecked) => {
+  return requests({
+    url: `/cart/checkCart/${skuId}/${isChecked}`,
+    method: 'get'
+  })
+}
+
