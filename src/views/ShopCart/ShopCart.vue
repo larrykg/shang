@@ -45,11 +45,11 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked="isAllChecked">
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked" @change="updateAllChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a @click="deleteAllCheckedCart">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -142,6 +142,7 @@
           alert(e.message)
         }
       },
+
       //修改勾选状态
       async reqChangeCartStatus(cart, event) {
         console.log(event);
@@ -153,7 +154,20 @@
           alert(e.message)
         }
 
-      }
+      },
+
+      //删除选中的商品:
+      async deleteAllCheckedCart() {
+        try {
+          await this.$store.dispatch('deleteAllCheckedCart');
+          this.getDate()
+        } catch (e) {
+          alert(e.message)
+        }
+
+      },
+
+      //修改
     }
   }
 </script>

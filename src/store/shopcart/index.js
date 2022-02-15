@@ -12,7 +12,6 @@ const actions = {
   //获取购物车列表数据
   async getCartList({commit}) {
     let result = await reqCarList();
-    console.log(result);
     if (result.code == 200) {
       commit('GERCARTLIST', result.data)
     }
@@ -34,6 +33,18 @@ const actions = {
     } else {
       return Promise.reject(new Error('faile'))
     }
+  },
+  //删除全部勾选产品
+  deleteAllCheckedCart({dispatch, getters}) {
+    //action的第一个参数是context上下文 {}的写法是解构出对应的对象、
+    //获取购物车中全部产品
+    let PromiseAll = [];
+    getters.cartList.cartInfoList.forEach(item => {
+      let promise = item.isChecked == 1 ? dispatch('deleteCartListBySkuId', item.skuId) : '';
+      PromiseAll.push(promise)
+    });
+    //如果全部都成功 但会结果即为成功 如果有一个失败 返回结果即为失败
+    return Promise.all(PromiseAll);
   }
 };
 const getters = {
