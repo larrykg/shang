@@ -4,11 +4,15 @@
     <div class="top">
       <div class="container">
         <div class="loginList">
-          <p>尚品汇欢迎您！</p>
-          <p>
+          <p>minMall欢迎您！</p>
+          <p v-if="!userName">
             <span>请</span>
             <router-link to="/login">登录</router-link>
-            <a href="###" class="register">免费注册</a>
+            <router-link to="/register" class="register">免费注册</router-link>
+          </p>
+          <p v-else>
+            <a>{{userName}}</a>
+            <a class="register" @click="logout">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -46,7 +50,7 @@
     data() {
       return {
         keyword: '',
-        userName: 'Test'
+
       }
     },
     methods: {
@@ -81,15 +85,28 @@
         //有三种写法
 
       },
-      logout() {
-        console.log('out');
+      async logout() {
+        try {
+          //发请求退出登录
+          //清楚项目中的数据  userinfo  token
+          await this.$store.dispatch('userLogout');
+          this.$router.push('/home')
+        } catch (e) {
+
+        }
+
       }
     },
     mounted() {
       //通过$bus
-      this.$bus.$on('clear',()=>{
+      this.$bus.$on('clear', () => {
         this.keyword = ''
       })
+    },
+    computed: {
+      userName() {
+        return this.$store.state.user.userInfo.name
+      }
     }
   }
 </script>

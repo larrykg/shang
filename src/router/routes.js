@@ -5,6 +5,7 @@ import Register from '@/views/register/Register'
 import Detail from "@/views/detail/Detail";
 import AddCartSuccess from "@/views/AddCartSuccess/AddCartSuccess";
 import ShopCart from "@/views/ShopCart/ShopCart";
+import Trade from "@/views/Trade/Trade";
 
 export default [
   {
@@ -17,6 +18,12 @@ export default [
     path: '/shopcart',
     name: 'shopcart',
     component: ShopCart,
+    meta: {show: true}
+  },
+  {
+    path: '/trade',
+    name: 'trade',
+    component: Trade,
     meta: {show: true}
   },
   {

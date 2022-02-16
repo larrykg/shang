@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import store from '@/store'
 
 Vue.use(VueRouter);
 
@@ -45,14 +46,74 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
   }
 };
 
-const router = new VueRouter({
-  mode: 'history',
+let router = new VueRouter({
+  //mode: 'history',
   base: process.env.BASE_URL,
   routes,
   //滚动行为
   scrollBehavior(to, from, savedPosition) {
     return {y: 0}
   }
-})
+});
 
+//全局守卫
+router.beforeEach(async (to, from, next) => {
+  next();
+  console.log(store);
+  let token = store.state.user.token;
+  let name = store.state.user.userInfo.name;
+  console.log(token);
+  if (token) {
+    //用户已经登录
+    if (to.path == '/login') {
+      next('/home')
+    } else {
+      if (name) {
+        next()
+      } else {
+        //全局派发获取用户信息的action
+        try {
+          await store.dispatch('getUserInfo');
+          next()
+        } catch (e) {
+          //清除token
+          await store.dispatch('userLogout');
+          next('/login')
+        }
+      }
+    }
+  } else {
+    //暂定处理
+    next()
+  }
+})
 export default router
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

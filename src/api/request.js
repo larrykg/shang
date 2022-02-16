@@ -18,6 +18,10 @@ requests.interceptors.request.use((config) => {
     //请求头添加字段 约定好
     config.headers.userTempId = store.state.detail.uuid_token
   }
+  //将token传给服务器
+  if (store.state.user.token) {
+    config.headers.token = store.state.user.token
+  }
   return config
 });
 

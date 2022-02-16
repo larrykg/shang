@@ -1,9 +1,11 @@
-import {reqPhoneCode, reqUserRegister} from '@/api'
+import {reqPhoneCode, reqUserRegister, reqTokenLogin, reqLogout} from '@/api'
 import {reqLogin} from "../../api";
+import {setToken, getToken, removeToken} from '@/utils/token'
 
 const state = {
   code: '',
-  token: ''
+  token: getToken(),
+  userInfo: {}
 };
 const mutations = {
   GETCODE(state, code) {
@@ -11,6 +13,15 @@ const mutations = {
   },
   USERLOGIN(state, token) {
     state.token = token
+  },
+  GETUSERINFO(state, userInfo) {
+    state.userInfo = userInfo
+  },
+  //清楚本地用户
+  CLEAR(state) {
+    state.token = '';
+    state.userInfo = {};
+    removeToken()
   }
 };
 const actions = {
@@ -42,6 +53,31 @@ const actions = {
     if (result.code == 200) {
       //token是用户唯一标识符 后续网站使用经常需要使用
       commit('USERLOGIN', result.data.token);
+      //持久化存储
+      setToken(result.data.token)
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('faile'))
+    }
+  },
+
+  //token 获取用户信息
+  async getUserInfo({commit}) {
+    let result = await reqTokenLogin();
+    console.log(result);
+    if (result.code == 200) {
+      commit('GETUSERINFO', result.data)
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('faile'))
+    }
+  },
+
+  //退出登录
+  async userLogout({commit}) {
+    let result = await reqLogout();
+    if (result.code == 200) {
+      commit('CLEAR');
       return 'ok'
     } else {
       return Promise.reject(new Error('faile'))
