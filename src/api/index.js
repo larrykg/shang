@@ -110,3 +110,19 @@ export const reqLogout = () => {
     method: 'get'
   })
 }
+
+//获取用户地址信息 /api/user/userAddress/auth/findUserAddressList
+export const reqAddressInfo = () => {
+  return requests({
+    url: '/user/userAddress/auth/findUserAddressList',
+    method: 'get'
+  })
+}
+
+//获取结算商品清单 /api/order/auth/trade
+export const reqOrderInfo = () => {
+  return requests({
+    url: '/order/auth/trade',
+    method: 'get'
+  })
+}

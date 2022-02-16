@@ -59,10 +59,8 @@ let router = new VueRouter({
 //全局守卫
 router.beforeEach(async (to, from, next) => {
   next();
-  console.log(store);
   let token = store.state.user.token;
   let name = store.state.user.userInfo.name;
-  console.log(token);
   if (token) {
     //用户已经登录
     if (to.path == '/login') {
