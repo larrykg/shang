@@ -1,11 +1,16 @@
 import {reqPhoneCode, reqUserRegister} from '@/api'
+import {reqLogin} from "../../api";
 
 const state = {
-  code: ''
+  code: '',
+  token: ''
 };
 const mutations = {
   GETCODE(state, code) {
     state.code = code
+  },
+  USERLOGIN(state, token) {
+    state.token = token
   }
 };
 const actions = {
@@ -25,6 +30,18 @@ const actions = {
     let result = await reqUserRegister(user);
     console.log(result);
     if (result.code == 200) {
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('faile'))
+    }
+  },
+
+  //登录
+  async userLogin({commit}, data) {
+    let result = await reqLogin(data);
+    if (result.code == 200) {
+      //token是用户唯一标识符 后续网站使用经常需要使用
+      commit('USERLOGIN', result.data.token);
       return 'ok'
     } else {
       return Promise.reject(new Error('faile'))

@@ -9,12 +9,12 @@
               <a href="##" style="border-right: 0;">扫描登录</a>
             </li>
             <li>
-              <a href="##" class="current">账户登录</a>
+              <a class="current">账户登录</a>
             </li>
           </ul>
 
           <div class="content">
-            <form action="##">
+            <form>
               <div class="input-text clearFix">
                 <span></span>
                 <input type="text" placeholder="邮箱/用户名/手机号" v-model="phone">
@@ -30,7 +30,7 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn">登&nbsp;&nbsp;录</button>
+              <button class="btn" @click.prevent="login()">登&nbsp;&nbsp;录</button>
             </form>
 
             <div class="call clearFix">
@@ -68,10 +68,24 @@
 <script>
   export default {
     name: 'Login',
-    data(){
-      return{
-        phone:'',
-        password:''
+    data() {
+      return {
+        phone: '',
+        password: ''
+      }
+    },
+    methods: {
+      //登录
+      async login() {
+        try {
+          const {phone, password} = this;
+          (phone && password) && await this.$store.dispatch('userLogin', {phone, password});
+          //登录成功跳转到Home
+          this.$router.push('/home')
+        } catch (e) {
+          alert(e.message)
+        }
+
       }
     }
   }

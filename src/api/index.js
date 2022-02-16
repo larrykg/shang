@@ -86,5 +86,12 @@ export const reqUserRegister = (data) => {
   })
 }
 
-//
+// 登录 /api/user/passport/login
+export const reqLogin = (data)=>{
+  return requests({
+    url:'/user/passport/login',
+    data,
+    method:'post'
+  })
+}
 
