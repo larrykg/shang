@@ -7,7 +7,11 @@ import AddCartSuccess from "@/views/AddCartSuccess/AddCartSuccess";
 import ShopCart from "@/views/ShopCart/ShopCart";
 import Trade from "@/views/Trade/Trade";
 import Pay from "@/views/Pay/Pay";
-import PaySuccess from '@/views/PaySuccess/PaySuccess'
+import PaySuccess from '@/views/PaySuccess/PaySuccess';
+import Center from "@/views/Center/Center";
+//引入二级路由
+import MyOrder from "@/views/Center/myOrder/MyOrder";
+import GroupOrder from "@/views/Center/groupOrder/GroupOrder";
 
 export default [
   {
@@ -15,6 +19,27 @@ export default [
     name: 'Home',
     component: Home,
     redirect: '/home'
+  },
+  {
+    path: '/center',
+    name: 'center',
+    component: Center,
+    meta: {show: true},
+    //二级路由
+    children: [
+      {
+        path: 'myorder',
+        component: MyOrder
+      },
+      {
+        path: 'grouporder',
+        component: GroupOrder
+      },
+      {
+        path:'/center',
+        redirect:'/center/myorder'
+      }
+    ]
   },
   {
     path: '/paysuccess',

@@ -120,14 +120,29 @@
           showCancelButton: true,
           cancelButtonText: '支付遇见问题',
           confirmButtonText: '已支付成功',
-          showClose: false
+          showClose: false,
+          beforeClose: (type, instance, done) => {
+            if (type == 'cancel') {
+              alert('请联系管理员');
+              clearInterval(this.timer)
+              this.timer = null;
+              //关闭弹框
+              done()
+            } else {
+              if (this.payCode == 200) {
+                clearInterval(this.timer)
+                this.timer = null;
+                done();
+                this.$router.push('/paysuccess')
+              }
+            }
+          }
         });
         //需要实时了解支付状况
         if (!this.timer) {
           this.timer = setInterval(async () => {
             //发请求获取支付状态
             let result = await this.$API.reqPayStatus(this.orderId);
-            console.log(result);
             if (result.code == 200) {
               //清除定时器
               clearInterval(this.timer);
