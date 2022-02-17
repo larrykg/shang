@@ -28,6 +28,7 @@ export const reqGetSearchInfo = (params) => {
   })
 }
 
+//商品信息
 export const reqGoodsInfo = (skuId) => {
   return requests({
         url: `/item/${skuId}`,
@@ -123,6 +124,31 @@ export const reqAddressInfo = () => {
 export const reqOrderInfo = () => {
   return requests({
     url: '/order/auth/trade',
+    method: 'get'
+  })
+}
+
+//提交订单 /api/order/auth/submitOrder?tradeNo={tradeNo}
+export const reqSubmitOrder = (tradeNo, data) => {
+  return requests({
+    url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+    data,
+    method: 'post'
+  })
+}
+
+//订单支付信息 /api/payment/weixin/createNative/{orderId}
+export const reqPayInfo = (orderId) => {
+  return requests({
+    url: `/payment/weixin/createNative/${orderId}`,
+    method: 'get'
+  })
+}
+
+//获取支付订单状态 /api/payment/weixin/queryPayStatus/{orderId}
+export const reqPayStatus = (orderId) => {
+  return requests({
+    url: `/payment/weixin/queryPayStatus/${orderId}`,
     method: 'get'
   })
 }

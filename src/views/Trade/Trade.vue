@@ -85,7 +85,8 @@
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/pay">提交订单</router-link>
+      <!--      <router-link class="subBtn" to="/pay">提交订单</router-link>-->
+      <a class="subBtn" @click="submitOrder">提交订单</a>
     </div>
   </div>
 </template>
@@ -95,9 +96,11 @@
 
   export default {
     name: 'Trade',
-    data(){
+    data() {
       return {
-        msg:''
+        msg: '',
+        //订单号
+        orderId: ''
       }
     },
     mounted() {
@@ -121,6 +124,26 @@
         //全部的isDefault 为0
         addressInfo.forEach(item => item.isDefault = 0);
         add.isDefault = 1
+      },
+      //提交订单
+      async submitOrder() {
+        //交易编码
+        let data = {
+          "consignee": this.userDefaultAddress.consignee,
+          "consigneeTel": this.userDefaultAddress.phoneNum,
+          "deliveryAddress": this.userDefaultAddress.fullAddress,
+          "paymentWay": "ONLINE",
+          "orderComment": this.msg,
+          "orderDetailList": this.orderInfo.detailArrayList
+        };
+        let {tradeNo} = this.orderInfo;
+        let result = await this.$API.reqSubmitOrder(tradeNo, data);
+        if (result.code == 200) {
+          this.orderId = result.data;
+          this.$router.push('/pay?orderId=' + this.orderId)
+        } else {
+          alert(result.message)
+        }
       }
     }
   }

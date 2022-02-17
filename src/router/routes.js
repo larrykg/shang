@@ -6,6 +6,8 @@ import Detail from "@/views/detail/Detail";
 import AddCartSuccess from "@/views/AddCartSuccess/AddCartSuccess";
 import ShopCart from "@/views/ShopCart/ShopCart";
 import Trade from "@/views/Trade/Trade";
+import Pay from "@/views/Pay/Pay";
+import PaySuccess from '@/views/PaySuccess/PaySuccess'
 
 export default [
   {
@@ -13,6 +15,18 @@ export default [
     name: 'Home',
     component: Home,
     redirect: '/home'
+  },
+  {
+    path: '/paysuccess',
+    name: 'paysuccess',
+    component: PaySuccess,
+    meta: {show: true}
+  },
+  {
+    path: '/pay',
+    name: 'pay',
+    component: Pay,
+    meta: {show: true}
   },
   {
     path: '/shopcart',
