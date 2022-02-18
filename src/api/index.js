@@ -152,3 +152,11 @@ export const reqPayStatus = (orderId) => {
     method: 'get'
   })
 }
+
+//获取个人中心（我的订单）数据 /api/order/auth/{page}/{limit}
+export const reqMyOrderList = (page, limit) => {
+  return requests({
+    url: `/order/auth/${page}/${limit}`,
+    method: 'get'
+  })
+}

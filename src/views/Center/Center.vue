@@ -61,8 +61,6 @@
 </template>
 
 <script>
-
-
   export default {
     name: 'Center',
 
