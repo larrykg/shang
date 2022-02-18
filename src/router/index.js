@@ -81,8 +81,14 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    //暂定处理
-    next()
+    //未登录不能去交易相关，支付相关pay|paysuccess,center   应该跳转至登陆页   search home shopcart
+    let toPath = to.path;
+    if (toPath == '/trade' || toPath.indexOf('/pay') != -1 || toPath.indexOf('/center') != -1) {
+      next('/login?redirect=' + toPath)
+    } else {
+      next()
+    }
+
   }
 })
 export default router

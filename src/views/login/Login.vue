@@ -80,8 +80,9 @@
         try {
           const {phone, password} = this;
           (phone && password) && await this.$store.dispatch('userLogin', {phone, password});
-          //登录成功跳转到Home
-          this.$router.push('/home')
+          //判断路由中是否包含qurey参数
+          let toPath = this.$route.query.redirect || '/home'
+          this.$router.push(toPath)
         } catch (e) {
           alert(e.message)
         }
